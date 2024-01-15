@@ -398,7 +398,7 @@ class App(tk.Tk):
         except FileNotFoundError as fe:
             messagebox.showerror("Ошибка", str(fe))
 
-# конец(((
+# конец, возможно - счастливый(((
 
 if __name__ == "__main__":
     app = App()
