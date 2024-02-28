@@ -28,7 +28,8 @@ import json
 import tempfile
 import calendar
 
-#первая поправка мб, пробуем.
+
+#пробую вносить изме
 class App(tk.Tk):
     BASE_COST = 89.5  # базовая стоимость бандероли
     STEP_COST = 3.5   # стоимость за шаг в 20 грамм
