@@ -27,32 +27,7 @@ import math
 import json
 import tempfile
 import calendar
-import requests
-import subprocess
-import webbrowser
 
-def check_for_updates(current_version):
-    try:
-        response = requests.get('https://raw.githubusercontent.com/lawBorzzz/work/main/version.txt')
-        response.raise_for_status()
-        latest_version = response.text.strip()
-        print("Получена версия из GitHub:", latest_version)
-    except requests.exceptions.RequestException as e:
-        print("Ошибка при проверке обновлений:", e)
-        return
-
-    if latest_version != current_version:
-        print("Доступна новая версия:", latest_version)
-        # Открываем диалоговое окно с предложением обновления
-        root = tk.Tk()
-        root.withdraw()  # Скрыть основное окно
-        response = messagebox.askquestion("Доступна новая версия", "Желаете обновить?")
-        if response == 'yes':
-            # Перенаправляем пользователя на страницу загрузки
-            webbrowser.open('https://github.com/lawBorzzz/work/releases')
-        root.destroy()
-    else:
-        print("У вас последняя версия приложения.")
 
 class App(tk.Tk):
     BASE_COST = 89.5  # базовая стоимость бандероли
@@ -60,7 +35,6 @@ class App(tk.Tk):
     LETTER_COST = 29.0  # стоимость письма простого
     REGISTERED_LETTER_COST = 67.0 # стоимость письма заказного
     NDS = 1.2 # НДС 20%
-
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -291,7 +265,7 @@ class App(tk.Tk):
             current_date = datetime.strptime(selected_date, "%d.%m.%Y").date()
             
             result_string = (f"Итого за {current_date.strftime('%d.%m.%Y')} отправлено {self.total_parcels}"
-                 f" {'бандероль' if self.total_parcels % 10 == 1 and self.total_parcels % 100 != 11 else 'бандероли' if 2 <= self.total_parcels % 10 <= 4 and (self.total_parcels % 100 < 10 or self.total_parcels % 100 >= 20) else 'бандеролей'} весом {self.total_weight:.2f} грамм на сумму {self.total_cost:.2f} руб.\n")
+                 f" {'бандероль' if self.total_parcels % 10 == 1 and self.total_parcels % 100 != 11 else 'бандероли' if 2 <= self.total_parcels % 10 <= 4 and (self.total_parcels % 100 < 10 or self.total_parcels % 100 >= 20) else 'бандеролей'} весом {self.total_weight:.2f} грамм на сумму {self.total_cost:.2f} рублей.\n")
             
             custom_path = self.custom_path
             filename = os.path.join(custom_path, f"Списки бандеролей.txt")
@@ -1628,11 +1602,8 @@ class App(tk.Tk):
 
 
 
-def main():
-    current_version = "1.0.0"  # Текущая версия вашего приложения
-    check_for_updates(current_version)
-    app = App()
-    app.mainloop()
+
 
 if __name__ == "__main__":
-    main()
+    app = App()
+    app.mainloop()
